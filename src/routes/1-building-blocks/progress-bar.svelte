@@ -24,12 +24,12 @@
 
 <section>
     <!-- binds HTMLElement objects to divs so we can interact with them in the script tag-->
-    <div bind:this={progressColor} class="h-full"/>
+    <div bind:this={progressColor} class="h-full progress-color"/>
     <div bind:this={progressText} />
 </section>
 
 <style>
-    .progress-color {
+    .progress-color { 
         position: absolute;
         z-index: -1;
         top: 0;
