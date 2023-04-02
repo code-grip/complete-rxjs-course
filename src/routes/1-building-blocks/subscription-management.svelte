@@ -1,6 +1,6 @@
 <script lang="ts">
     import Page from "$lib/Page.svelte";
-    import { numberObservable$, stringObservable$ } from "$utils/rxjs-prefab";
+    import { numberIntervalObservable$, numberObservable$, stringIntervalObservable$, stringObservable$ } from "$utils/rxjs-prefab";
 
     /** finite observables */
     const finiteStringSubscription = stringObservable$.subscribe({
@@ -23,7 +23,7 @@
     //     (stringInterval) =>
     //         console.log("(infinite) string interval:", stringInterval)
     // );
-    
+
     /** Teardown function use case */
 </script>
 
