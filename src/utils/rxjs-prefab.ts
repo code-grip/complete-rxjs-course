@@ -58,25 +58,23 @@ export const numberObservable$ = new Observable(subscriber => {
 export const numberIntervalObservable$ = new Observable<number>(subscriber => {
   let counter = 0;
 
-  const intervalId = setInterval(() => {
+  setInterval(() => {
     subscriber.next(counter++);
   }, 1000);
 
   return () => {
     console.log('numberIntervalObservable$ teardown function activated');
-    clearInterval(intervalId);
   };
 });
 
 export const stringIntervalObservable$ = new Observable<string>(subscriber => {
   let counter = 0;
 
-  const intervalId = setInterval(() => {
+  setInterval(() => {
     subscriber.next(String.fromCharCode((counter++) + 97));
   }, 1000);
 
   return () => {
     console.log('stringIntervalObservable$ teardown function activated');
-    clearInterval(intervalId);
   };
 });
