@@ -25,28 +25,25 @@
             };
         });
 
+           // shared style for progress bar
+           progressColor.style.position = "absolute";
+
         // update styling based on the incoming notification type
         progressCount$.subscribe({
             next: (progressCount) => {
                 progressText.textContent = progressCount + "%";
-
                 progressColor.style.width = progressCount + "%";
                 progressColor.style.backgroundColor = "yellow";
-                progressColor.style.left = "0";
-                progressColor.style.top = "0";
-                progressColor.style.zIndex = "-1";
             },
             error: (error) => {
                 progressText.textContent = error;
                 progressText.style.color = "#fff";
-
                 progressColor.style.width = "100%";
                 progressColor.style.backgroundColor = "red";
             },
             complete: () => {
                 progressText.textContent = "Complete!";
                 progressText.style.color = "#fff";
-
                 progressColor.style.backgroundColor = "forestgreen";
             },
         });
