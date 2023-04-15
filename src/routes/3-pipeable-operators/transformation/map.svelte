@@ -10,7 +10,7 @@
 
     /** order of pipeable operator is important */
 
-    /** rewriting the combineLatest exercise by using pipe operators like map */
+    /** rewriting the combineLatest exercise by using pipeable operators like map */
     const schoolClasses: ISchoolClass[] = [
         schoolClassMap.biology,
         schoolClassMap.mathematics,
