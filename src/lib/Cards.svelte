@@ -6,7 +6,7 @@
 </script>
 
 <main class="m-20 flex items-center flex-col">
-    <h1 class="text-5xl font-bold">{title}</h1>
+    <h1 class="text-5xl text-center font-bold">{title}</h1>
 
     <section class="flex my-4 w-full flex-wrap justify-center">
         {#each items as item}
