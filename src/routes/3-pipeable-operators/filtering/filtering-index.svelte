@@ -2,8 +2,8 @@
     import Cards from "$lib/Cards.svelte";
     import { itemCollections } from "$utils/constants";
 
-    const lessons = itemCollections.SUBSCRIPTION_HANDLING_PIPE_OPERATORS;
-    const title = "Subscription handling pipe operators";
+    const lessons = itemCollections.FILTERING_PIPEABLE_OPERATORS;
+    const title = "Filtering pipeable operators";
 </script>
 
 <section>
