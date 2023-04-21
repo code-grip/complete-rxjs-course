@@ -108,27 +108,6 @@ export function getFullTapObserver(label: string): TapObserver<any> {
   }
 }
 
-/**
- * custom websocket observable (only emits websocket values)
- */
-export const webSocket$ = new Observable<MessageEvent>((subscriber) => {
-  const ws = new WebSocket(
-    "wss://demo.piesocket.com/v3/channel_1?api_key=VCXCEuvhGcBDP7XhiJJUDvR1e1D3eiVjgZ9VRiaV"
-  );
-  const type = "message";
-  const eventHandler = (event) => subscriber.next(event)
-  ws.addEventListener(type, eventHandler);
-
-  return () => {
-    ws.removeEventListener(type, eventHandler)
-  }
-}).pipe(
-  filter(message => !!message.data),
-  map((message, i) => `(${i}) ${message.data}`),
-  debounceTime(750)
-);
-
-
 
 /**
  * @abstract fetches random user from the open source randomuser api
