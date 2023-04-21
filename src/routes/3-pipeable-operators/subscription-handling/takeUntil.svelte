@@ -36,7 +36,7 @@
 
         // fill in your notifier observable here
         const notifier$ = clickNotifier$.pipe(
-            tap(getFullTapObserver("(notifier)")), // change to tapobserver on interval notifier
+            tap(getFullTapObserver("(notifier)")),
         );
 
         /** example 1: interval producer */
