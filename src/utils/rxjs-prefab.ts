@@ -139,8 +139,7 @@ export const webSocket$ = new Observable<MessageEvent>((subscriber) => {
 export function fetchRandomUser(countryCode?: string, specificProperty?: string): Observable<any> {
   if (!countryCode) return throwError(() => "No country code provided")
 
-  const url = "https://randomuser.me/api/"
-  return fromFetch(`${url}${countryCode ? `?nat=${countryCode}` : ""}`, {
+  return fromFetch(`${urlRandomUserAPI}${countryCode ? `?nat=${countryCode}` : ""}`, {
     selector: async (response) => {
       const result = (await response.json()).results[0];
       return result[specificProperty] ?? result;
@@ -150,3 +149,5 @@ export function fetchRandomUser(countryCode?: string, specificProperty?: string)
     delay(Math.random() * 1500)
   );
 }
+
+const urlRandomUserAPI = "https://randomuser.me/api/"

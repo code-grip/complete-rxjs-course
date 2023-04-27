@@ -25,8 +25,10 @@
         // "xMap" = map & "xAll"
 
         // other values that can be used in inner subscriptions
+
+        // We need to unsubscribe from infinite observables ourselves, eg: an interval
     )
-    // .subscribe((value) => console.log(value));
+    // .subscribe(getFullObserver("with flattening"));
 
     /** common flattening operator use case: making http requests (concatMap, switchMap, mergeMap) */
     onMount(() => {
