@@ -17,16 +17,7 @@
             delayWhen((newsLetter) => timer(newsLetter.releaseDate)),
             map((newsLetter) => ({ headline: newsLetter.headline }))
         )
-        // .subscribe({
-        //     next: (newsLetter) => {
-        //         console.log("-------- emitting new newsletter --------");
-        //         newsLetterSubject$.next(newsLetter);
-        //     },
-        //     complete: () => {
-        //         console.log("-------- starting teardown --------");
-        //         newsLetterSubject$.complete();
-        //     },
-        // });
+        // .subscribe(newsLetterSubject$);
 
     // subscriptions
     // newsLetterSubject$
