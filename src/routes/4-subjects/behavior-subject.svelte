@@ -1,23 +1,43 @@
 <script lang="ts">
     import { newsLetters } from "$utils/constants";
-    import type { INewsLetter } from "$utils/interfaces";
-    import { BehaviorSubject, delayWhen, from, map, Subject, timer } from "rxjs";
+    import { getFullTapObserver } from "$utils/rxjs-prefab";
+    import { BehaviorSubject, delayWhen, from, map, Subject, tap, timer } from "rxjs";
     import { onMount } from "svelte";
 
     /** -------- newsLetter scenario -------- */
-    const newsLetterSubject$ = new Subject<INewsLetter>();
+    const colors = {
+        wizard: "color:	#56b5ff",
+        orc: "color: #ff6961",
+        fairy: "color: #77dd77",
+    };
+    const newsLetterSubject$ = new Subject();
 
     from(newsLetters)
         .pipe(
             delayWhen((newsLetter) => timer(newsLetter.releaseDate)),
             map((newsLetter) => ({ headline: newsLetter.headline }))
         )
-        .subscribe(newsLetterSubject$);
+        // .subscribe({
+        //     next: (newsLetter) => {
+        //         console.log("-------- emitting new newsletter --------");
+        //         newsLetterSubject$.next(newsLetter);
+        //     },
+        //     complete: () => {
+        //         console.log("-------- starting teardown --------");
+        //         newsLetterSubject$.complete();
+        //     },
+        // });
 
-    // newsLetterSubject$.pipe(tap(getFullTapObserver("(wizard subscriber)"))).subscribe();
-    // newsLetterSubject$.pipe(tap(getFullTapObserver("(orc subscriber)"))).subscribe();
-    // timer(6000).subscribe(() =>
-    //     newsLetterSubject$.pipe(tap(getFullTapObserver("(fairy subscriber)"))).subscribe()
+    // subscriptions
+    // newsLetterSubject$
+    //     .pipe(tap(getFullTapObserver("(wizard subscriber)", colors.wizard)))
+    //     .subscribe();
+    // newsLetterSubject$.pipe(tap(getFullTapObserver("(orc subscriber)", colors.orc))).subscribe();
+
+    // timer(5000).subscribe(() =>
+    //     newsLetterSubject$
+    //         .pipe(tap(getFullTapObserver("(fairy subscriber)", colors.fairy)))
+    //         .subscribe()
     // );
 
     /** -------- store example -------- */
@@ -63,7 +83,7 @@
     <section class="mt-4 w-full">
         <h1 class="text-2xl font-bold my-2">Store</h1>
         <div class="flex justify-between h-48">
-            <div class="flex-1 mr-2 border-2 border-solid  border-gray-500 rounded-sm p-3">
+            <div class="flex-1 mr-2 border-2 border-solid border-gray-500 rounded-sm p-3">
                 <h1 class="text-xl font-bold">Animals</h1>
                 <div class="overflow-y-auto max-h-32">
                     {#each [] as animal}
@@ -72,9 +92,9 @@
                 </div>
             </div>
 
-            <div class="flex-1  ml-2 border-2 border-solid border-gray-500 rounded-sm p-3">
+            <div class="flex-1 ml-2 border-2 border-solid border-gray-500 rounded-sm p-3">
                 <h1 class="text-xl font-bold">Caretaker</h1>
-                {$store$.caretaker?.name}
+                {""}
             </div>
         </div>
     </section>
