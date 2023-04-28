@@ -8,6 +8,11 @@
     // emit values
 
     /** newsLetter scenario */
+    const colors = {
+        wizard: "color:	#56b5ff",
+        orc: "color: #ff6961",
+        fairy: "color: #77dd77"
+    }
 
     // subscriptions
 
