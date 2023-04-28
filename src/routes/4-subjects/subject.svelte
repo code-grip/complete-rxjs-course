@@ -1,7 +1,6 @@
 <script lang="ts">
     import Page from "$lib/Page.svelte";
     import { newsLetters } from "$utils/constants";
-    import type { INewsLetter } from "$utils/interfaces";
     import { getFullObserver, getFullTapObserver } from "$utils/rxjs-prefab";
     import { delayWhen, from, interval, map, of, Subject, takeUntil, tap, timer } from "rxjs";
     import { onDestroy } from "svelte";
@@ -24,41 +23,48 @@
         orc: "color: #ff6961",
         fairy: "color: #77dd77",
     };
-    const newsLetterSubject$ = new Subject<INewsLetter>();
+    const newsLetterSubject$ = new Subject();
 
-    from(newsLetters).pipe(
-        delayWhen((newsLetter) => timer(newsLetter.releaseDate)),
-        map((newsLetter) => ({ headline: newsLetter.headline }))
-    );
-    // .subscribe(newsLetterSubject$);
-    // .subscribe({
-    //     next: (newsLetter) => {
-    //         console.log("---- emitting new newsLetter ----");
-    //         newsLetterSubject$.next(newsLetter);
-    //     },
-    //     complete: () => {
-    //         newsLetterSubject$.complete();
-    //     }
-    // });
+    from(newsLetters)
+        .pipe(
+            delayWhen((newsLetter) => timer(newsLetter.releaseDate)),
+            map((newsLetter) => ({ headline: newsLetter.headline }))
+        )
+        // .subscribe(newsLetterSubject$);
+        // .subscribe({
+        //     next: (newsLetter) => {
+        //         console.log("-------- emitting new newsletter --------");
+        //         newsLetterSubject$.next(newsLetter);
+        //     },
+        //     complete: () => {
+        //         console.log("-------- starting teardown --------");
+        //         newsLetterSubject$.complete();
+        //     },
+        // });
 
     // subscriptions
-    // newsLetterSubject$.pipe(tap(getFullTapObserver("(wizard subscriber)"))).subscribe();
-    // newsLetterSubject$.pipe(tap(getFullTapObserver("(orc subscriber)"))).subscribe();
+    // newsLetterSubject$
+    //     .pipe(tap(getFullTapObserver("(wizard subscriber)", colors.wizard)))
+    //     .subscribe();
+    // newsLetterSubject$
+    //     .pipe(tap(getFullTapObserver("(orc subscriber)", colors.orc)))
+    //     .subscribe();
 
-    // timer(6000).subscribe(() =>
-    //     newsLetterSubject$.pipe(tap(getFullTapObserver("(fairy subscriber)"))).subscribe()
+    // timer(5000).subscribe(() =>
+    //     newsLetterSubject$
+    //         .pipe(tap(getFullTapObserver("(fairy subscriber)", colors.fairy)))
+    //         .subscribe()
     // );
 
     /** using subjects in combination with takeUntil */
     const destroy$ = new Subject();
 
-    interval(1000)
-        .pipe(
-            // as usual, a single next notification destroys the subscription,
-            // in this case its coming from the subject when the component is destroyed
-            takeUntil(destroy$.pipe(tap(getFullTapObserver("(destroy$)"))))
-        )
-        .subscribe(getFullObserver("interval"));
+    interval(1000).pipe(
+        // as usual, a single next notification destroys the subscription,
+        // in this case its coming from the subject when the component is destroyed
+        takeUntil(destroy$.pipe(tap(getFullTapObserver("(destroy$)"))))
+    );
+    // .subscribe(getFullObserver("interval"));
 
     onDestroy(() => {
         destroy$.next("onDestroy lifecycle event was triggered, sending next notification");
