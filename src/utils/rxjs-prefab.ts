@@ -86,11 +86,11 @@ export const stringIntervalObservable$ = new Observable<string>(subscriber => {
  * @param label: tells us what situation the observer is observing
  * @returns {@type Observer}
  */
-export function getFullObserver(label: string): Observer<any> {
+export function getFullObserver(label: string, color?: string): Observer<any> {
   return {
-    next: (value) => console.log(`${label}:`, value),
-    error: (err) => console.error(`Error in ${label}: `, err),
-    complete: () => console.log(`${label} completed!`),
+    next: (value) => console.log(`%c ${label}:`, color, value),
+    error: (err) => console.error(`%c Error in ${label}: `, color, err),
+    complete: () => console.log(`%c ${label}`, color, 'completed!'),
   }
 }
 
@@ -99,12 +99,12 @@ export function getFullObserver(label: string): Observer<any> {
  * @param label: tells us what situation the observer is observing
  * @returns {@type TapObserver}
  */
-export function getFullTapObserver(label: string): TapObserver<any> {
+export function getFullTapObserver(label: string, color?: string): TapObserver<any> {
   return {
-    ...getFullObserver(label),
-    subscribe: () => console.log(`${label} subscription started!`),
-    unsubscribe: () => console.log(`${label} unsubscribed manually!`),
-    finalize: () => console.log(`${label} subscription was destroyed!`),
+    ...getFullObserver(label, color),
+    subscribe: () => console.log(`%c ${label}`, color, 'subscription started!'),
+    unsubscribe: () => console.log(`%c ${label}`, color, 'unsubscribed manually!'),
+    finalize: () => console.log(`%c ${label}`, color, 'subscription was destroyed!'),
   }
 }
 
