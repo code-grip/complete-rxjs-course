@@ -69,11 +69,6 @@
     onDestroy(() => {
         destroy$.next("onDestroy lifecycle event was triggered, sending next notification");
         destroy$.unsubscribe();
-
-        // destroy$.next(
-        //     "OnDestroy lifecycle event was triggered, sending last next notfification to all subscribers"
-        // );
-        // destroy$.unsubscribe();
     });
 </script>
 
